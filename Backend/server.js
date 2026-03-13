@@ -9,20 +9,24 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://bank-management-api-2.onrender.com'],
-    credentials: true
+    origin: true, // Allow all origins for development
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
-// Connect to MongoDB (using local instance)
-mongoose.connect(process.env.MONGODB_URI)
+// Connect to MongoDB
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://demo:demo@cluster0.mongodb.net/bank-management?retryWrites=true&w=majority';
+
+mongoose.connect(mongoURI)
 .then(() => {
     console.log('Connected to MongoDB');
 })
 .catch((error) => {
     console.error('MongoDB connection error:', error);
-    console.log('Make sure MongoDB is running locally on port 27017');
-    process.exit(1); // Exit if cannot connect to DB
+    // For deployment, continue without DB connection
+    console.log('Running without database connection');
 });
 
 // Routes
