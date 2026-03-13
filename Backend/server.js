@@ -9,15 +9,24 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://bank-management-api-2.onrender.com'],
+    origin: ['https://bank-management-api-2.onrender.com'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
-// Skip MongoDB connection for demo - use mock data
-console.log('Running in demo mode with mock data');
+// Connect to MongoDB
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://bankapp:bankapp123@cluster0.mongodb.net/bank-management?retryWrites=true&w=majority';
+
+mongoose.connect(mongoURI)
+.then(() => {
+    console.log('Connected to MongoDB');
+})
+.catch((error) => {
+    console.error('MongoDB connection error:', error);
+    console.log('Running in demo mode without database');
+});
 
 // Routes
 app.use('/api/accounts', accountRoutes);
