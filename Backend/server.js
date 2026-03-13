@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: true, // Allow all origins for development
+    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://bank-management-api-2.onrender.com'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -31,6 +31,9 @@ mongoose.connect(mongoURI)
 
 // Routes
 app.use('/api/accounts', accountRoutes);
+
+// Handle pre-flight requests
+app.options('*', cors());
 
 // Root route
 app.get('/', (req, res) => {
