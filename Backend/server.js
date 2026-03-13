@@ -16,18 +16,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Connect to MongoDB
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://demo:demo@cluster0.mongodb.net/bank-management?retryWrites=true&w=majority';
-
-mongoose.connect(mongoURI)
-.then(() => {
-    console.log('Connected to MongoDB');
-})
-.catch((error) => {
-    console.error('MongoDB connection error:', error);
-    // For deployment, continue without DB connection
-    console.log('Running without database connection');
-});
+// Skip MongoDB connection for demo - use mock data
+console.log('Running in demo mode with mock data');
 
 // Routes
 app.use('/api/accounts', accountRoutes);

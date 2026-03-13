@@ -6,10 +6,11 @@ export const api = {
     try {
       const response = await fetch(API_BASE_URL);
       const data = await response.json();
-      return data;
+      // Ensure we always return an array
+      return Array.isArray(data) ? data : [];
     } catch (error) {
       console.error('Error fetching accounts:', error);
-      throw error;
+      return []; // Return empty array on error
     }
   },
 

@@ -28,12 +28,38 @@ const createAccount = async (req, res) => {
 
 // Get All Accounts
 const getAllAccounts = async (req, res) => {
-    try {
-        const accounts = await Account.find().sort({ createdAt: -1 });
-        res.status(200).json(accounts);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+    console.log('Returning demo accounts');
+    // Always return demo data
+    const demoAccounts = [
+        {
+            _id: 'demo1',
+            accountHolderName: 'John Doe',
+            accountNumber: '1234567890',
+            accountType: 'Savings',
+            balance: 50000,
+            branch: 'Main Branch',
+            createdAt: new Date().toISOString()
+        },
+        {
+            _id: 'demo2',
+            accountHolderName: 'Jane Smith',
+            accountNumber: '0987654321',
+            accountType: 'Current',
+            balance: 25000,
+            branch: 'City Branch',
+            createdAt: new Date().toISOString()
+        },
+        {
+            _id: 'demo3',
+            accountHolderName: 'Bob Johnson',
+            accountNumber: '5555555555',
+            accountType: 'Savings',
+            balance: 75000,
+            branch: 'Downtown Branch',
+            createdAt: new Date().toISOString()
+        }
+    ];
+    res.status(200).json(demoAccounts);
 };
 
 // Get Account By ID

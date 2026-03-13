@@ -17,11 +17,12 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const data = await api.getAllAccounts();
-      setAccounts(data);
+      setAccounts(Array.isArray(data) ? data : []);
       setError(null);
     } catch (err) {
       setError('Failed to fetch accounts');
       console.error('Error fetching accounts:', err);
+      setAccounts([]); // Ensure accounts is always an array
     } finally {
       setLoading(false);
     }
@@ -44,10 +45,10 @@ const Dashboard = () => {
   };
 
   // Calculate statistics
-  const totalAccounts = accounts.length;
-  const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0);
-  const savingsAccounts = accounts.filter(account => account.accountType === 'Savings').length;
-  const currentAccounts = accounts.filter(account => account.accountType === 'Current').length;
+  const totalAccounts = accounts?.length || 0;
+  const totalBalance = accounts?.reduce((sum, account) => sum + (account.balance || 0), 0) || 0;
+  const savingsAccounts = accounts?.filter(account => account.accountType === 'Savings').length || 0;
+  const currentAccounts = accounts?.filter(account => account.accountType === 'Current').length || 0;
 
   if (loading) {
     return (
