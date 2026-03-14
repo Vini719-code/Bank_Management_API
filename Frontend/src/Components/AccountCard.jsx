@@ -97,16 +97,16 @@ const AccountCard = ({ account, onAccountUpdate, onAccountDelete }) => {
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600 dark:text-gray-400">Account No:</span>
-            <span className="font-mono text-gray-900 dark:text-white">{account.accountNumber}</span>
+            <span className="font-mono text-gray-900 dark:text-white">{account.accountNumber || 'N/A'}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600 dark:text-gray-400">Branch:</span>
-            <span className="text-gray-900 dark:text-white">{account.branch}</span>
+            <span className="text-gray-900 dark:text-white">{account.branch || 'Not specified'}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-600 dark:text-gray-400">Balance:</span>
             <span className="text-xl font-bold text-green-600 dark:text-green-400">
-              ₹{account.balance.toLocaleString()}
+              ₹{(account.balance || 0).toLocaleString()}
             </span>
           </div>
         </div>

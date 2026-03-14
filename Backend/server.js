@@ -5,11 +5,11 @@ const cors = require('cors');
 const accountRoutes = require('./routes/accountRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 8000; // Use port 8000 - standard and should be free
 
 // Middleware
 app.use(cors({
-    origin: ['https://bank-management-api-2.onrender.com'],
+    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://bank-management-api-2.onrender.com'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -36,7 +36,15 @@ app.options('*', cors());
 
 // Root route
 app.get('/', (req, res) => {
-    res.json({ message: 'Bank Management System API is running' });
+    res.json({ 
+        message: 'Bank Management System API is running',
+        port: PORT 
+    });
+});
+
+// Get port info
+app.get('/port', (req, res) => {
+    res.json({ port: PORT });
 });
 
 // Error handling middleware
@@ -48,4 +56,5 @@ app.use((err, req, res, next) => {
 // Start server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log(`Backend URL: http://localhost:${PORT}`);
 });

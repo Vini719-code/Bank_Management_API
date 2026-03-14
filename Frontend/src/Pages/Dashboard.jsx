@@ -169,7 +169,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {accounts.map((account) => (
               <AccountCard
-                key={account._id}
+                key={account._id || account.accountNumber}
                 account={account}
                 onAccountUpdate={handleAccountUpdated}
                 onAccountDelete={handleAccountDeleted}
