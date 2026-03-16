@@ -9,7 +9,7 @@ const PORT = 8000; // Use port 8000 - standard and should be free
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://bank-management-api-2.onrender.com', 'https://bank-management-api-3.onrender.com'],
+    origin: true, // Allow all origins for development
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
