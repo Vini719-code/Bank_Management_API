@@ -12,9 +12,7 @@ app.use(cors({
     origin: [
         'http://localhost:5173', 
         'http://localhost:3000', 
-       'https://bank-management-api-cs3a.vercel.app/'
-        // Add your Vercel frontend URL here
-        // Example: 'https://your-app.vercel.app'
+       'https://bank-management-api-cs3a.vercel.app'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -38,7 +36,7 @@ mongoose.connect(mongoURI)
 app.use('/api/accounts', accountRoutes);
 
 // Handle pre-flight requests
-app.options('*', cors());
+// app.options('*', cors());
 
 // Root route
 app.get('/', (req, res) => {

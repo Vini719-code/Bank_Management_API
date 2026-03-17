@@ -17,12 +17,11 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const data = await api.getAllAccounts();
-      setAccounts(Array.isArray(data) ? data : []);
+      setAccounts(data);
       setError(null);
     } catch (err) {
       setError('Failed to fetch accounts');
       console.error('Error fetching accounts:', err);
-      setAccounts([]); // Ensure accounts is always an array
     } finally {
       setLoading(false);
     }
@@ -45,10 +44,10 @@ const Dashboard = () => {
   };
 
   // Calculate statistics
-  const totalAccounts = accounts?.length || 0;
-  const totalBalance = accounts?.reduce((sum, account) => sum + (account.balance || 0), 0) || 0;
-  const savingsAccounts = accounts?.filter(account => account.accountType === 'Savings').length || 0;
-  const currentAccounts = accounts?.filter(account => account.accountType === 'Current').length || 0;
+  const totalAccounts = accounts.length;
+  const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0);
+  const savingsAccounts = accounts.filter(account => account.accountType === 'Savings').length;
+  const currentAccounts = accounts.filter(account => account.accountType === 'Current').length;
 
   if (loading) {
     return (
@@ -169,7 +168,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {accounts.map((account) => (
               <AccountCard
-                key={account._id || account.accountNumber}
+                key={account._id}
                 account={account}
                 onAccountUpdate={handleAccountUpdated}
                 onAccountDelete={handleAccountDeleted}
