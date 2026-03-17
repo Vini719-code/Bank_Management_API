@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://bank-management-api-3.onrender.com/api/accounts';
+const API_BASE_URL = 'http://localhost:8000/api/accounts';
 
 export const api = {
   // Get all accounts
@@ -6,11 +6,10 @@ export const api = {
     try {
       const response = await fetch(API_BASE_URL);
       const data = await response.json();
-      // Ensure we always return an array
-      return Array.isArray(data) ? data : [];
+      return data;
     } catch (error) {
       console.error('Error fetching accounts:', error);
-      return []; // Return empty array on error
+      throw error;
     }
   },
 
