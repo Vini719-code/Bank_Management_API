@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://localhost:8000/api/accounts';
+// const API_BASE_URL = 'http://localhost:8000/api/accounts';
+const API_BASE_URL = 'https://bank-management-api-5.onrender.com/api/accounts';
+
 
 export const api = {
   // Get all accounts
