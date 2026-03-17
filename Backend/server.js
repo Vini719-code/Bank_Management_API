@@ -9,7 +9,13 @@ const PORT = 8000; // Use port 8000 - standard and should be free
 
 // Middleware
 app.use(cors({
-    origin: true, // Allow all origins for development
+    origin: [
+        'http://localhost:5173', 
+        'http://localhost:3000', 
+       'https://bank-management-api-cs3a.vercel.app/'
+        // Add your Vercel frontend URL here
+        // Example: 'https://your-app.vercel.app'
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
